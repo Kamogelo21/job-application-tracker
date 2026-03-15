@@ -37,10 +37,14 @@ Tools
 . Postman (API testing)
 
 PROJECT STRUCTURE
+
 job-tracker
 │
+
 ├── src/main/java/com/jobtracker/job_tracker
+
 │   ├── controller
+
 │   │   └── JobApplicationController
 │   │
 │   ├── service
