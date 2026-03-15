@@ -13,16 +13,38 @@ public class JobApplication {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String title;
     private String company;
-
+    private String status;
     private String position;
 
-    private String location;
+    public Long getId() {
+        return id;
+    }
 
-    private String status;
-    // APPLIED, INTERVIEW, OFFER, REJECTED
+    public String getTitle() {
+        return title;
+    }
 
-    private String jobLink;
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-    private String notes;
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getPosition() { return position; }
 }
