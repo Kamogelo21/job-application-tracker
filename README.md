@@ -36,37 +36,6 @@ Tools
 . Git & GitHub
 . Postman (API testing)
 
-PROJECT STRUCTURE
-
-job-tracker
-│
-
-├── src/main/java/com/jobtracker/job_tracker
-
-│   ├── controller
-
-│   │   └── JobApplicationController
-│   │
-│   ├── service
-│   │   └── JobApplicationService
-│   │
-│   ├── repository
-│   │   └── JobApplicationRepository
-│   │
-│   ├── model
-│   │   └── JobApplication
-│   │
-│   ├── dto
-│   │
-│   └── config
-│
-├── static
-│   ├── index.html
-│   ├── style.css
-│   └── script.js
-│
-└── pom.xml
-
 REST API ENDPOINTS
 | Method | Endpoint         | Description       |
 | ------ | ---------------- | ----------------- |
