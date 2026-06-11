@@ -11,6 +11,13 @@ FEATURES
 . Color-coded job status indicators
 . Dashboard UI for managing applications
 
+Screenshot
+🏠 Home
+
+<p align="center">
+  <img src="screenshot/Screenshot.png" width="600" alt="Home page" />
+</p>
+
 Supported statuses include:
 . Applied
 . Interview
