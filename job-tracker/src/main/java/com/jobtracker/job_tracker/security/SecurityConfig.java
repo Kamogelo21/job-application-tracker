@@ -14,12 +14,10 @@ import com.jobtracker.job_tracker.repository.UserRepository;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 @Configuration
 public class SecurityConfig {
-
-    @Autowired
-    private JwtService jwtService;
 
     @Autowired
     private UserRepository userRepository;
@@ -29,10 +27,8 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        JwtAuthenticationFilter jwtFilter = new JwtAuthenticationFilter(jwtService, userRepository);
-
         http
-          .csrf().disable()
+          .csrf(csrf -> csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
           .authorizeHttpRequests()
             .requestMatchers("/auth/**", "/h2-console/**", "/").permitAll()
             .anyRequest().authenticated()
@@ -41,8 +37,6 @@ public class SecurityConfig {
             .formLogin().permitAll()
           .and()
             .logout().permitAll();
-
-        http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
         // allow frames for h2-console in dev
         http.headers().frameOptions().sameOrigin();
