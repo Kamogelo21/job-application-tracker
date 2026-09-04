@@ -12,6 +12,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import com.jobtracker.job_tracker.repository.UserRepository;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 @Configuration
 public class SecurityConfig {
@@ -21,6 +23,9 @@ public class SecurityConfig {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private UserDetailsService userDetailsService;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -32,8 +37,10 @@ public class SecurityConfig {
             .requestMatchers("/auth/**", "/h2-console/**", "/").permitAll()
             .anyRequest().authenticated()
           .and()
-            .sessionManagement().disable() // stateless
-          ;
+            .authenticationProvider(authenticationProvider())
+            .formLogin().permitAll()
+          .and()
+            .logout().permitAll();
 
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
@@ -46,6 +53,14 @@ public class SecurityConfig {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public DaoAuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+        authProvider.setUserDetailsService(userDetailsService);
+        authProvider.setPasswordEncoder(passwordEncoder());
+        return authProvider;
     }
 
     // expose AuthenticationManager for controller login
